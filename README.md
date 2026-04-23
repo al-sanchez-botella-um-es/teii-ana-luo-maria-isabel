@@ -12,3 +12,9 @@ COMMITS POR CADA EJERCICIO (BIEN EXPLICATIVOS) Y SEPARADOS EN EL TIEMPO (NO EL M
 - Ejercicios de pyton en Notebook
 - Ejercicio en Marimo (notebook interactivo con diagramas visuales)
 - Ejercicios de logging
+
+Tenemos que tener .github/workflow/*.yaml
+En actions -> GitHUb Actions Examples -> lo ejecutamos (Run) y tiene que salir Success
+
+Para cuando se haga un push se realice Action automaticamente -> workflow_dispatch
+Ver el ejemplo *teii-cicd.yaml*
