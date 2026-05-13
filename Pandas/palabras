@@ -1,0 +1,13 @@
+Esta función recibe como argumentos una lista de cadenas y una cadena con una palabra a buscar,
+y devuelve la lista de los índices de las cadenas que contienen dicha palabra,
+independientemente de que haya mayúsculas o minúsculas.
+
+.
+
+Nótese que hay que buscar palabras enteras, no partes de otras palabras.
+
+.
+
+En la lista de cadenas puede haber caracteres no alfabéticos tras alguna palabra
+que no deben interferir con la búsqueda.
+
