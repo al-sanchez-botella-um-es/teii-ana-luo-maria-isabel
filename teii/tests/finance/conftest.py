@@ -23,18 +23,19 @@ def mocked_requests():
         response.status_code = 200
         if 'NVDA' in url:
             json_filename = 'TIME_SERIES_WEEKLY_ADJUSTED.NVDA.json'
+        elif 'NODATA' in url:
+            json_filename = 'NODATA.json'
         else:
             raise ValueError('Ticker no soportado')
         json_resource = resources.files('teii.finance.data').joinpath(json_filename)
         json_data = json.loads(json_resource.read_text(encoding='utf-8'))
         response.json.return_value = json_data
         return response
-
-    # This fixture does not return a value: it patches teii.finance.finance.requests
-    # with a local mock to avoid real HTTP calls and keep tests deterministic.
+    
     mocked_requests = mock.Mock()
     mocked_requests.get.side_effect = mocked_get
     teii.finance.finance.requests = mocked_requests
+    return mocked_requests
 
 
 @fixture(scope='package')
