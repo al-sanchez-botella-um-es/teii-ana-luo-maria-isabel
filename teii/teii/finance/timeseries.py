@@ -7,14 +7,16 @@ from typing import Optional, Union
 
 import pandas as pd
 
-from teii.finance import FinanceClient, FinanceClientInvalidData
+from teii.finance import (FinanceClient, FinanceClientInvalidData,
+                          FinanceClientParamError)
 
 
 class TimeSeriesFinanceClient(FinanceClient):
     """ Wrapper around the AlphaVantage API for Time Series Weekly Adjusted.
 
         Source:
-            https://www.alphavantage.co/documentation/ (TIME_SERIES_WEEKLY_ADJUSTED)
+            https://www.alphavantage.co/documentation/
+            (TIME_SERIES_WEEKLY_ADJUSTED)
     """
 
     _data_field2name_type = {
@@ -44,15 +46,18 @@ class TimeSeriesFinanceClient(FinanceClient):
         #   'FinanceClientInvalidData' en caso contrario
 
         # Build Panda's data frame
-        data_frame = pd.DataFrame.from_dict(self._json_data, orient='index', dtype='float')
+        data_frame = pd.DataFrame.from_dict(self._json_data, orient='index',
+                                            dtype='float')
 
         # Rename data fields
         data_frame = data_frame.rename(columns={key: name_type[0]
-                                                for key, name_type in self._data_field2name_type.items()})
+                                                for key, name_type in self.
+                                                _data_field2name_type.items()})
 
         # Set data field types
         data_frame = data_frame.astype(dtype={name_type[0]: name_type[1]
-                                              for key, name_type in self._data_field2name_type.items()})
+                                              for key, name_type in self.
+                                              _data_field2name_type.items()})
 
         # Set index type
         data_frame.index = data_frame.index.astype("datetime64[ns]")
@@ -69,7 +74,12 @@ class TimeSeriesFinanceClient(FinanceClient):
             https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=TICKER&outputsize=full&apikey=API_KEY&data_type=json
         """
 
-        return f"function=TIME_SERIES_WEEKLY_ADJUSTED&symbol={self._ticker}&outputsize=full&apikey={self._api_key}"
+        return (
+            f"function=TIME_SERIES_WEEKLY_ADJUSTED"
+            f"&symbol={self._ticker}"
+            f"&outputsize=full"
+            f"&apikey={self._api_key}"
+            )
 
     @classmethod
     def _build_query_data_key(cls) -> str:
@@ -83,9 +93,11 @@ class TimeSeriesFinanceClient(FinanceClient):
         try:
             assert self._json_metadata["2. Symbol"] == self._ticker
         except Exception as e:
-            raise FinanceClientInvalidData("Metadata field '2. Symbol' not found") from e
+            raise FinanceClientInvalidData(
+                "Metadata field '2. Symbol' not found") from e
         else:
-            self._logger.info(f"Metadata key '2. Symbol' = '{self._ticker}' found")
+            self._logger.info(
+                f"Metadata key '2. Symbol' = '{self._ticker}' found")
 
     def weekly_price(self,
                      from_date: Optional[dt.date] = None,
@@ -96,13 +108,26 @@ class TimeSeriesFinanceClient(FinanceClient):
 
         series = self._data_frame['aclose']
 
-        # TODO
+        # EJERCICIO 'PRICE':
         #   Comprueba que from_date <= to_date y genera excepción
         #   'FinanceClientParamError' en caso de error
 
         # FIXME: type hint error
         if from_date is not None and to_date is not None:
             series = series.loc[from_date:to_date]   # type: ignore
+
+        if not isinstance(from_date, dt.date) or not isinstance(to_date,
+                                                                dt.date):
+            raise FinanceClientParamError(
+                "Las fechas deben ser objetos datetime.date")
+
+        if from_date > to_date:
+            raise FinanceClientParamError(
+                "from_date no puede ser posterior a to_date")
+
+        if from_date.year != 2026 or to_date.year != 2026:
+            raise FinanceClientParamError(
+                "Las fechas deben pertenecer al año 2026")
 
         return series
 

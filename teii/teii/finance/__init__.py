@@ -2,7 +2,8 @@
 
 
 from .exception import (FinanceClientAPIError, FinanceClientInvalidAPIKey,
-                        FinanceClientInvalidData, FinanceClientIOError)
+                        FinanceClientInvalidData, FinanceClientIOError,
+                        FinanceClientParamError)
 from .finance import FinanceClient
 from .timeseries import TimeSeriesFinanceClient
 
@@ -11,4 +12,5 @@ __all__ = ('FinanceClientInvalidAPIKey',
            'FinanceClientInvalidData',
            'FinanceClientIOError',
            'FinanceClient',
-           'TimeSeriesFinanceClient')
+           'TimeSeriesFinanceClient',
+           'FinanceClientParamError')
