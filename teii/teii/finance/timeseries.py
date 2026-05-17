@@ -149,3 +149,34 @@ class TimeSeriesFinanceClient(FinanceClient):
             series = series.loc[from_date:to_date]   # type: ignore
 
         return series
+
+    def yearly_dividends(self,
+                         from_year: Optional[int] = None,
+                         to_year: Optional[int] = None) -> pd.Series:
+        """ Devuelve el dividendo total anual de from_year y to_year del ticket elegido"""
+
+        assert self._data_frame is not None
+
+        # validar tipos y rangos de parámetros
+        if from_year is not None and not isinstance(from_year, int):
+            raise FinanceClientParamError("from_year debe ser un número entero (int)")
+
+        if to_year is not None and not isinstance(to_year, int):
+            raise FinanceClientParamError("to_year debe ser un número entero (int)")
+
+        if from_year is not None and to_year is not None and from_year > to_year:
+            raise FinanceClientParamError("from_year no puede ser posterior a to_year")
+
+        # extraemos el dividendo
+        series = self._data_frame['dividend']
+
+        # Agrupamos por el año del índice Datetime y sumamos los dividendos
+        annual_dividends = series.groupby(series.index.year).sum()  # índice de años
+
+        # Filtramos por el rango de años solicitado
+        if from_year is not None:
+            annual_dividends = annual_dividends[annual_dividends.index >= from_year]
+        if to_year is not None:
+            annual_dividends = annual_dividends[annual_dividends.index <= to_year]
+
+        return annual_dividends
