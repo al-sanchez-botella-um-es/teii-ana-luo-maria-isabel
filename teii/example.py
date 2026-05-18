@@ -12,7 +12,7 @@ import datetime as dt
 # EJERCICIO 'LOGGING':
 """logging.basicConfig(
     filename="example.log",
-    level=logging.INFO,
+    level=logging.DEBUG,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )"""
 # Cambiando el nivel, cambia el contenido del example.log
@@ -28,6 +28,11 @@ formatter = logging.Formatter(
 handler.setFormatter(formatter)
 
 logger.addHandler(handler)
+
+# para teii.finance
+root = logging.getLogger()
+root.setLevel(logging.DEBUG)
+root.addHandler(handler)
 
 
 def setup_logging(logging_level):
