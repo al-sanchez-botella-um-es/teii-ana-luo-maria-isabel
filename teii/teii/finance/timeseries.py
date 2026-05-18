@@ -114,23 +114,22 @@ class TimeSeriesFinanceClient(FinanceClient):
 
         # FIXME: type hint error
         # si no hay fechas, devolvemos la serie completa
-        if from_date is not None and to_date is not None:
-            return series   # type: ignore
+        if from_date is None or to_date is None:
+            return series
 
+        # 2. Validar tipos
         if not isinstance(from_date, dt.date) or not isinstance(to_date,
                                                                 dt.date):
             raise FinanceClientParamError(
                 "Las fechas deben ser objetos datetime.date")
 
+        # 3. Validar orden
         if from_date > to_date:
             raise FinanceClientParamError(
                 "from_date no puede ser posterior a to_date")
 
-        if from_date.year != 2026 or to_date.year != 2026:
-            raise FinanceClientParamError(
-                "Las fechas deben pertenecer al año 2026")
-
-        return series.loc[from_date:to_date]
+        # 4. Filtrar (sin validar año)
+        return series.loc[from_date:to_date]   # type: ignore
 
     def weekly_volume(self,
                       from_date: Optional[dt.date] = None,
