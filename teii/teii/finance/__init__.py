@@ -4,6 +4,7 @@
 from .exception import (FinanceClientAPIError, FinanceClientInvalidAPIKey,
                         FinanceClientInvalidData, FinanceClientIOError,
                         FinanceClientParamError)
+
 from .finance import FinanceClient
 from .timeseries import TimeSeriesFinanceClient
 

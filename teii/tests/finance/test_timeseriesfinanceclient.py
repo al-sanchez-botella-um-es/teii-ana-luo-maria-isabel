@@ -4,16 +4,56 @@
 import datetime as dt
 
 import pytest
+import requests
 from pandas.testing import assert_series_equal
-
+from unittest.mock import Mock
+from typing import Any
 from teii.finance import (FinanceClientInvalidAPIKey, TimeSeriesFinanceClient,
-                          FinanceClientParamError)
+                          FinanceClientParamError, FinanceClientAPIError,
+                          FinanceClientInvalidData)
+
+# HAY QUE AÑADIR TYPE ANNOTATIONS
+
+# TEST 1 -> Ejercicio CONSTRUCTOR
 
 
-# Cada vez que se ejecuta un test, las funciones a probar serán las que
-# empiecen con 'test_'
-def test_constructor_success(api_key_str,
-                             mocked_requests):
+def test_constructor_env(monkeypatch: pytest.MonkeyPatch,
+                         mocked_requests: Any) -> None:
+    """
+    Verifica que el constructor funciona correctamente usando la
+    variable de entorno TEII_FINANCE_API_KEY.
+    """
+    monkeypatch.setenv("TEII_FINANCE_API_KEY", "VALOR_DE_PRUEBA")
+
+    # Ejecutamos el constructor sin pasar api_key_str
+    # El objeto debe crearse con éxito al leer del entorno
+    TimeSeriesFinanceClient("NVDA")
+
+# TEST 2 -> Ejercicio CONSTRUCTOR
+
+
+def test_constructor_unsuccessful_request(monkeypatch: pytest.MonkeyPatch,
+                                          api_key_str: str):
+    # Creamos el Mock que lanza la excepción
+    mock_get = Mock(side_effect=requests.exceptions.ConnectionError("Error de red"))
+
+    # sustituimos requests.get por el mock que acabamos de crear
+    monkeypatch.setattr("teii.finance.finance.requests.get", mock_get)
+
+    #  el constructor envuelve el FinanceClientAPIError
+    with pytest.raises(FinanceClientAPIError):
+        TimeSeriesFinanceClient("NVDA", api_key_str)
+
+
+def test_constructor_invalid_data(monkeypatch: pytest.MonkeyPatch, api_key_str: str) -> None:
+    """Verifica que el ticker NODATA (sin series temporales) lanza excepción."""
+    # El mocked_requests debe estar configurado para devolver NODATA.json
+    with pytest.raises(FinanceClientInvalidData):
+        TimeSeriesFinanceClient("NODATA", api_key_str)
+
+
+def test_constructor_success(api_key_str: str,
+                             mocked_requests: Any) -> None:
     TimeSeriesFinanceClient("NVDA", api_key_str)
 
 
@@ -40,7 +80,6 @@ def test_weekly_price_invalid_dates(api_key_str,
             "2026-01-01",
             dt.date(2026, 12, 31)
         )
-
     pass
 
 
@@ -104,7 +143,6 @@ def test_weekly_volume_no_dates(api_key_str,
 
     # Comparación exacta
     assert_series_equal(vs, pandas_series_NVDA_volumes)
-
     pass
 
 

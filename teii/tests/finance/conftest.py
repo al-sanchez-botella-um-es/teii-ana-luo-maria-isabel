@@ -23,6 +23,8 @@ def mocked_requests():
         response.status_code = 200
         if 'NVDA' in url:
             json_filename = 'TIME_SERIES_WEEKLY_ADJUSTED.NVDA.json'
+        elif 'NODATA' in url:
+            json_filename = 'NODATA.json'
         else:
             raise ValueError('Ticker no soportado')
         json_resource = resources.files('teii.finance.data').joinpath(json_filename)
@@ -75,3 +77,4 @@ def pandas_series_NVDA_volumes_filtered():
         df = pd.read_csv(path2csv, index_col=0, parse_dates=True)
         ds = df['volume']
     return ds
+
