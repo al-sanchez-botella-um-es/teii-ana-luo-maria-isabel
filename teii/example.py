@@ -7,12 +7,38 @@ import matplotlib.pyplot as plt
 
 import teii.finance as tf
 
+import datetime as dt
+
+# EJERCICIO 'LOGGING':
+"""logging.basicConfig(
+    filename="example.log",
+    level=logging.DEBUG,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)"""
+# Cambiando el nivel, cambia el contenido del example.log
+logger = logging.getLogger("example")
+logger.setLevel(logging.DEBUG)   # Nivel para example.py
+
+handler = logging.FileHandler("example.log")
+handler.setLevel(logging.DEBUG)  # Nivel del handler
+
+formatter = logging.Formatter(
+    "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
+handler.setFormatter(formatter)
+
+logger.addHandler(handler)
+
+# para teii.finance
+root = logging.getLogger()
+root.setLevel(logging.DEBUG)
+root.addHandler(handler)
+
 
 def setup_logging(logging_level):
     """ Crea y configura logger. """
 
-    # TODO
-    #   Configura logging para enviar la salida a un archivo
+    # Configura logging para enviar la salida a un archivo
 
     logging.basicConfig(
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -36,8 +62,8 @@ def plot(pandas_series, ticker, logger):
 def main():
     """ Muestra como usar teii-finance. """
 
-    logger = setup_logging(logging.DEBUG)
-
+    # logger = setup_logging(logging.DEBUG)
+    logger = logging.getLogger(__name__)
     logger.info("Inicio")
 
     # Define ticker y API key
@@ -61,8 +87,8 @@ def main():
     else:
         # EJERCICIO 'PRICE':
         #   Filtra los datos para mostrar únicamente el año 2026
-        inicio_2026 = "2026-01-01"
-        fin_2026 = "2026-12-31"
+        inicio_2026 = dt.date(2026, 1, 1)
+        fin_2026 = dt.date(2026, 12, 31)
 
         # Genera una serie de Pandas con precio de cierre semanal
         pd_series = tf_client.weekly_price(
