@@ -222,3 +222,6 @@ def test_yearly_dividends_invalid_params(api_key_str: str,
     # Caso 2: El tipo de parámetro no es un entero (int)
     with pytest.raises(FinanceClientParamError):
         fc.yearly_dividends(from_year="2020", to_year=2025)  # type: ignore
+
+
+# --- EJERCICIO [VARIATION] ---

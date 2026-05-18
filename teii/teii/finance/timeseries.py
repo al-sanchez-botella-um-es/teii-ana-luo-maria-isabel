@@ -198,3 +198,52 @@ class TimeSeriesFinanceClient(FinanceClient):
             annual_dividends = annual_dividends[annual_dividends.index <= to_year]
 
         return annual_dividends
+
+    def highest_weekly_variation(self,
+                                 from_date: Optional[dt.date] = None,
+                                 to_date: Optional[dt.date] = None) -> Optional[tuple[dt.date, float, float, float]]:
+        """ Devolver (date, high, low, variation) para la semana con la mayor variación. """
+
+        assert self._data_frame is not None
+
+        # Validaciones de tipo
+        if from_date is not None and not isinstance(from_date, dt.date):
+            raise FinanceClientParamError("from_date debe ser un objeto datetime.date")
+        if to_date is not None and not isinstance(to_date, dt.date):
+            raise FinanceClientParamError("to_date debe ser un objeto datetime.date")
+
+        # Validaciones de rango
+        if from_date is not None and to_date is not None:
+            if from_date > to_date:
+                raise FinanceClientParamError("from_date no puede ser posterior a to_date")
+
+        # Copiamos el dataframe en una copia para no modificarlo
+        df_recortado = self._data_frame
+
+        # Aplicamos el filtro de fechas
+        if from_date is not None:
+            df_recortado = df_recortado[df_recortado.index.date >= from_date]
+        if to_date is not None:
+            df_recortado = df_recortado[df_recortado.index.date <= to_date]
+
+        # Si con el rango de fechas vacía el DataFrame, devolvemos None de forma segura
+        if df_recortado.empty:
+            return None
+
+        # Calculamos la variación (high - low) para todas las filas filtradas
+        variacion = df_recortado['high'] - df_recortado['low']
+
+        # Encontramos la fecha (idmax) donde la variación es la más alta
+        fecha_max_var = variacion.idxmax()
+
+        # Extraemos valores para construir la tupla
+        fila_max = df_recortado.loc[fecha_max_var]
+
+        high_val = float(fila_max['high'])
+        low_val = float(fila_max['low'])
+        var_val = float(high_val - low_val)
+
+        # Convertimos el índice DatetimeIndex de Pandas a un objeto datetime.date de python
+        fecha_nativa = fecha_max_var.date()
+
+        return (fecha_nativa, high_val, low_val, var_val)
