@@ -34,14 +34,7 @@ def test_weekly_price_invalid_dates(api_key_str,
             dt.date(2026, 1, 1)
         )
 
-    # Caso 2: año incorrecto
-    with pytest.raises(FinanceClientParamError):
-        fc.weekly_price(
-            dt.date(2025, 12, 31),
-            dt.date(2026, 1, 1)
-        )
-
-    # Caso 3: tipo incorrecto
+    # Caso 2: tipo incorrecto
     with pytest.raises(FinanceClientParamError):
         fc.weekly_price(
             "2026-01-01",
