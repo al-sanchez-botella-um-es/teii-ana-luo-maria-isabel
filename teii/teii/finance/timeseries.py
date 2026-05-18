@@ -113,8 +113,9 @@ class TimeSeriesFinanceClient(FinanceClient):
         #   'FinanceClientParamError' en caso de error
 
         # FIXME: type hint error
+        # si no hay fechas, devolvemos la serie completa
         if from_date is not None and to_date is not None:
-            series = series.loc[from_date:to_date]   # type: ignore
+            return series   # type: ignore
 
         if not isinstance(from_date, dt.date) or not isinstance(to_date,
                                                                 dt.date):
@@ -129,7 +130,7 @@ class TimeSeriesFinanceClient(FinanceClient):
             raise FinanceClientParamError(
                 "Las fechas deben pertenecer al año 2026")
 
-        return series
+        return series.loc[from_date:to_date]
 
     def weekly_volume(self,
                       from_date: Optional[dt.date] = None,
