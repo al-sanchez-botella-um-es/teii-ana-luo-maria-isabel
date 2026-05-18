@@ -1,0 +1,120 @@
+{
+  "version": "1",
+  "metadata": {
+    "marimo_version": "0.23.6",
+    "script_metadata_hash": null
+  },
+  "cells": [
+    {
+      "id": "Hbol",
+      "code_hash": "3f252912315d7d58b7ea361b82680c30",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "gLyb",
+      "code_hash": "c4cd814e9fa763db7744ff330c4886c9",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h1 id=\"panel-pokemon-reactivo-con-marimo\"><strong>Panel Pokemon Reactivo con Marimo</strong></h1>\n<span class=\"paragraph\"><strong>Asignatura:</strong> Tecnolog\u00edas Espec\u00edficas en Ingenier\u00eda Inform\u00e1tica <br />\n<strong>Autoras:</strong> <br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\nAna Luo S\u00e1nchez Botella <br>\n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\nMar\u00eda Isabel P\u00e9rez Lis\u00f3n </span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "pHoV",
+      "code_hash": "dcc4a684ac91638ff2a961ee854066db",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "MQnY",
+      "code_hash": "1df1b5e16c2988a77f4ffd6babadd8b0",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<div style='display: flex;flex: 1;flex-direction: row;justify-content: flex-start;align-items: normal;flex-wrap: nowrap;gap: 0.5rem'><marimo-ui-element object-id='pHoV-1' random-id='e302ae76-84e0-8c49-1712-18113dfc2140'><marimo-dropdown data-initial-value='[&quot;Todos&quot;]' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;Filtrar por Elemento:&lt;/span&gt;&lt;/span&gt;&quot;' data-options='[&quot;Todos&quot;,&quot;electric&quot;,&quot;grass&quot;,&quot;fire&quot;,&quot;poison&quot;,&quot;psychic&quot;,&quot;water&quot;,&quot;normal&quot;]' data-allow-select-none='false' data-searchable='false' data-full-width='false'></marimo-dropdown></marimo-ui-element><marimo-ui-element object-id='pHoV-0' random-id='cd928fc5-2cd0-16d7-8800-d602277ffa11'><marimo-switch data-initial-value='false' data-label='&quot;&lt;span class=&#92;&quot;markdown prose dark:prose-invert contents&#92;&quot;&gt;&lt;span class=&#92;&quot;paragraph&#92;&quot;&gt;Conectar a la Pok\u00e9API en vivo (Por defecto: Fichero Local)&lt;/span&gt;&lt;/span&gt;&quot;' data-disabled='false'></marimo-switch></marimo-ui-element></div>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "boUR",
+      "code_hash": "2ab1266d223db068e7a98c6d9a15bdb0",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\"><strong>Conectado con \u00e9xito a la Pok\u00e9API original en tiempo real por HTTP</strong></span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "qGKH",
+      "code_hash": "b0ab831bcf1f6c6bbd3545221a4b1355",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "CzyE",
+      "code_hash": "a20a0bba6217ac4a83a7dede538a3620",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-mime-renderer data-mime='&quot;application/vnd.vegalite.v6+json&quot;' data-data='&quot;{&#92;n  &#92;&quot;&#36;schema&#92;&quot;: &#92;&quot;https://vega.github.io/schema/vega-lite/v6.4.1.json&#92;&quot;,&#92;n  &#92;&quot;config&#92;&quot;: {&#92;n    &#92;&quot;view&#92;&quot;: {&#92;n      &#92;&quot;continuousHeight&#92;&quot;: 300,&#92;n      &#92;&quot;continuousWidth&#92;&quot;: 300&#92;n    }&#92;n  },&#92;n  &#92;&quot;data&#92;&quot;: {&#92;n    &#92;&quot;name&#92;&quot;: &#92;&quot;data-8b27f329c683d6269485cd2e5242686d&#92;&quot;&#92;n  },&#92;n  &#92;&quot;datasets&#92;&quot;: {&#92;n    &#92;&quot;data-8b27f329c683d6269485cd2e5242686d&#92;&quot;: [&#92;n      {&#92;n        &#92;&quot;attack&#92;&quot;: 55,&#92;n        &#92;&quot;defense&#92;&quot;: 40,&#92;n        &#92;&quot;height&#92;&quot;: 4,&#92;n        &#92;&quot;hp&#92;&quot;: 35,&#92;n        &#92;&quot;name&#92;&quot;: &#92;&quot;Pikachu&#92;&quot;,&#92;n        &#92;&quot;type&#92;&quot;: &#92;&quot;electric&#92;&quot;,&#92;n        &#92;&quot;weight&#92;&quot;: 60&#92;n      },&#92;n      {&#92;n        &#92;&quot;attack&#92;&quot;: 49,&#92;n        &#92;&quot;defense&#92;&quot;: 49,&#92;n        &#92;&quot;height&#92;&quot;: 7,&#92;n        &#92;&quot;hp&#92;&quot;: 45,&#92;n        &#92;&quot;name&#92;&quot;: &#92;&quot;Bulbasaur&#92;&quot;,&#92;n        &#92;&quot;type&#92;&quot;: &#92;&quot;grass&#92;&quot;,&#92;n        &#92;&quot;weight&#92;&quot;: 69&#92;n      },&#92;n      {&#92;n        &#92;&quot;attack&#92;&quot;: 84,&#92;n        &#92;&quot;defense&#92;&quot;: 78,&#92;n        &#92;&quot;height&#92;&quot;: 17,&#92;n        &#92;&quot;hp&#92;&quot;: 78,&#92;n        &#92;&quot;name&#92;&quot;: &#92;&quot;Charizard&#92;&quot;,&#92;n        &#92;&quot;type&#92;&quot;: &#92;&quot;fire&#92;&quot;,&#92;n        &#92;&quot;weight&#92;&quot;: 905&#92;n      },&#92;n      {&#92;n        &#92;&quot;attack&#92;&quot;: 95,&#92;n        &#92;&quot;defense&#92;&quot;: 69,&#92;n        &#92;&quot;height&#92;&quot;: 35,&#92;n        &#92;&quot;hp&#92;&quot;: 60,&#92;n        &#92;&quot;name&#92;&quot;: &#92;&quot;Arbok&#92;&quot;,&#92;n        &#92;&quot;type&#92;&quot;: &#92;&quot;poison&#92;&quot;,&#92;n        &#92;&quot;weight&#92;&quot;: 650&#92;n      },&#92;n      {&#92;n        &#92;&quot;attack&#92;&quot;: 110,&#92;n        &#92;&quot;defense&#92;&quot;: 90,&#92;n        &#92;&quot;height&#92;&quot;: 20,&#92;n        &#92;&quot;hp&#92;&quot;: 106,&#92;n        &#92;&quot;name&#92;&quot;: &#92;&quot;Mewtwo&#92;&quot;,&#92;n        &#92;&quot;type&#92;&quot;: &#92;&quot;psychic&#92;&quot;,&#92;n        &#92;&quot;weight&#92;&quot;: 1220&#92;n      },&#92;n      {&#92;n        &#92;&quot;attack&#92;&quot;: 65,&#92;n        &#92;&quot;defense&#92;&quot;: 65,&#92;n        &#92;&quot;height&#92;&quot;: 12,&#92;n        &#92;&quot;hp&#92;&quot;: 90,&#92;n        &#92;&quot;name&#92;&quot;: &#92;&quot;Slowpoke&#92;&quot;,&#92;n        &#92;&quot;type&#92;&quot;: &#92;&quot;water&#92;&quot;,&#92;n        &#92;&quot;weight&#92;&quot;: 360&#92;n      },&#92;n      {&#92;n        &#92;&quot;attack&#92;&quot;: 85,&#92;n        &#92;&quot;defense&#92;&quot;: 55,&#92;n        &#92;&quot;height&#92;&quot;: 10,&#92;n        &#92;&quot;hp&#92;&quot;: 50,&#92;n        &#92;&quot;name&#92;&quot;: &#92;&quot;Ponyta&#92;&quot;,&#92;n        &#92;&quot;type&#92;&quot;: &#92;&quot;fire&#92;&quot;,&#92;n        &#92;&quot;weight&#92;&quot;: 300&#92;n      },&#92;n      {&#92;n        &#92;&quot;attack&#92;&quot;: 110,&#92;n        &#92;&quot;defense&#92;&quot;: 65,&#92;n        &#92;&quot;height&#92;&quot;: 21,&#92;n        &#92;&quot;hp&#92;&quot;: 160,&#92;n        &#92;&quot;name&#92;&quot;: &#92;&quot;Snorlax&#92;&quot;,&#92;n        &#92;&quot;type&#92;&quot;: &#92;&quot;normal&#92;&quot;,&#92;n        &#92;&quot;weight&#92;&quot;: 4600&#92;n      },&#92;n      {&#92;n        &#92;&quot;attack&#92;&quot;: 48,&#92;n        &#92;&quot;defense&#92;&quot;: 65,&#92;n        &#92;&quot;height&#92;&quot;: 5,&#92;n        &#92;&quot;hp&#92;&quot;: 44,&#92;n        &#92;&quot;name&#92;&quot;: &#92;&quot;Squirtle&#92;&quot;,&#92;n        &#92;&quot;type&#92;&quot;: &#92;&quot;water&#92;&quot;,&#92;n        &#92;&quot;weight&#92;&quot;: 90&#92;n      },&#92;n      {&#92;n        &#92;&quot;attack&#92;&quot;: 10,&#92;n        &#92;&quot;defense&#92;&quot;: 55,&#92;n        &#92;&quot;height&#92;&quot;: 9,&#92;n        &#92;&quot;hp&#92;&quot;: 20,&#92;n        &#92;&quot;name&#92;&quot;: &#92;&quot;Magikarp&#92;&quot;,&#92;n        &#92;&quot;type&#92;&quot;: &#92;&quot;water&#92;&quot;,&#92;n        &#92;&quot;weight&#92;&quot;: 100&#92;n      }&#92;n    ]&#92;n  },&#92;n  &#92;&quot;encoding&#92;&quot;: {&#92;n    &#92;&quot;color&#92;&quot;: {&#92;n      &#92;&quot;field&#92;&quot;: &#92;&quot;type&#92;&quot;,&#92;n      &#92;&quot;title&#92;&quot;: &#92;&quot;Elemento&#92;&quot;,&#92;n      &#92;&quot;type&#92;&quot;: &#92;&quot;nominal&#92;&quot;&#92;n    },&#92;n    &#92;&quot;tooltip&#92;&quot;: [&#92;n      {&#92;n        &#92;&quot;field&#92;&quot;: &#92;&quot;name&#92;&quot;,&#92;n        &#92;&quot;title&#92;&quot;: &#92;&quot;Pok\u00e9mon&#92;&quot;,&#92;n        &#92;&quot;type&#92;&quot;: &#92;&quot;nominal&#92;&quot;&#92;n      },&#92;n      {&#92;n        &#92;&quot;field&#92;&quot;: &#92;&quot;type&#92;&quot;,&#92;n        &#92;&quot;title&#92;&quot;: &#92;&quot;Tipo&#92;&quot;,&#92;n        &#92;&quot;type&#92;&quot;: &#92;&quot;nominal&#92;&quot;&#92;n      },&#92;n      {&#92;n        &#92;&quot;field&#92;&quot;: &#92;&quot;hp&#92;&quot;,&#92;n        &#92;&quot;title&#92;&quot;: &#92;&quot;Vida (HP)&#92;&quot;,&#92;n        &#92;&quot;type&#92;&quot;: &#92;&quot;quantitative&#92;&quot;&#92;n      },&#92;n      {&#92;n        &#92;&quot;field&#92;&quot;: &#92;&quot;attack&#92;&quot;,&#92;n        &#92;&quot;title&#92;&quot;: &#92;&quot;Ataque&#92;&quot;,&#92;n        &#92;&quot;type&#92;&quot;: &#92;&quot;quantitative&#92;&quot;&#92;n      },&#92;n      {&#92;n        &#92;&quot;field&#92;&quot;: &#92;&quot;defense&#92;&quot;,&#92;n        &#92;&quot;title&#92;&quot;: &#92;&quot;Defensa&#92;&quot;,&#92;n        &#92;&quot;type&#92;&quot;: &#92;&quot;quantitative&#92;&quot;&#92;n      }&#92;n    ],&#92;n    &#92;&quot;x&#92;&quot;: {&#92;n      &#92;&quot;field&#92;&quot;: &#92;&quot;attack&#92;&quot;,&#92;n      &#92;&quot;title&#92;&quot;: &#92;&quot;Potencial de Ataque Base&#92;&quot;,&#92;n      &#92;&quot;type&#92;&quot;: &#92;&quot;quantitative&#92;&quot;&#92;n    },&#92;n    &#92;&quot;y&#92;&quot;: {&#92;n      &#92;&quot;field&#92;&quot;: &#92;&quot;defense&#92;&quot;,&#92;n      &#92;&quot;title&#92;&quot;: &#92;&quot;Potencial de Defensa Base&#92;&quot;,&#92;n      &#92;&quot;type&#92;&quot;: &#92;&quot;quantitative&#92;&quot;&#92;n    }&#92;n  },&#92;n  &#92;&quot;height&#92;&quot;: 350,&#92;n  &#92;&quot;mark&#92;&quot;: {&#92;n    &#92;&quot;opacity&#92;&quot;: 0.85,&#92;n    &#92;&quot;size&#92;&quot;: 180,&#92;n    &#92;&quot;type&#92;&quot;: &#92;&quot;circle&#92;&quot;&#92;n  },&#92;n  &#92;&quot;params&#92;&quot;: [&#92;n    {&#92;n      &#92;&quot;bind&#92;&quot;: &#92;&quot;scales&#92;&quot;,&#92;n      &#92;&quot;name&#92;&quot;: &#92;&quot;param_1e9efca18e7a2868&#92;&quot;,&#92;n      &#92;&quot;select&#92;&quot;: {&#92;n        &#92;&quot;encodings&#92;&quot;: [&#92;n          &#92;&quot;x&#92;&quot;,&#92;n          &#92;&quot;y&#92;&quot;&#92;n        ],&#92;n        &#92;&quot;type&#92;&quot;: &#92;&quot;interval&#92;&quot;&#92;n      }&#92;n    }&#92;n  ],&#92;n  &#92;&quot;usermeta&#92;&quot;: {&#92;n    &#92;&quot;embedOptions&#92;&quot;: {}&#92;n  },&#92;n  &#92;&quot;width&#92;&quot;: 600&#92;n}&quot;'></marimo-mime-renderer>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "YIPd",
+      "code_hash": "70ad8ef7df62b4602a961ae629b128b0",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='YIPd-0' random-id='b2efbb13-5743-61d4-08e5-dd2f5d46c0a9'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;_marimo_row_id&#92;&quot;:0,&#92;&quot;Nombre Pok&#92;&#92;u00e9mon&#92;&quot;:&#92;&quot;Pikachu&#92;&quot;,&#92;&quot;Altura (dm)&#92;&quot;:4,&#92;&quot;Peso (100g)&#92;&quot;:60,&#92;&quot;Vida (HP)&#92;&quot;:35,&#92;&quot;Ataque Base&#92;&quot;:55,&#92;&quot;Defensa Base&#92;&quot;:40,&#92;&quot;Elemento&#92;&quot;:&#92;&quot;electric&#92;&quot;},{&#92;&quot;_marimo_row_id&#92;&quot;:1,&#92;&quot;Nombre Pok&#92;&#92;u00e9mon&#92;&quot;:&#92;&quot;Bulbasaur&#92;&quot;,&#92;&quot;Altura (dm)&#92;&quot;:7,&#92;&quot;Peso (100g)&#92;&quot;:69,&#92;&quot;Vida (HP)&#92;&quot;:45,&#92;&quot;Ataque Base&#92;&quot;:49,&#92;&quot;Defensa Base&#92;&quot;:49,&#92;&quot;Elemento&#92;&quot;:&#92;&quot;grass&#92;&quot;},{&#92;&quot;_marimo_row_id&#92;&quot;:2,&#92;&quot;Nombre Pok&#92;&#92;u00e9mon&#92;&quot;:&#92;&quot;Charizard&#92;&quot;,&#92;&quot;Altura (dm)&#92;&quot;:17,&#92;&quot;Peso (100g)&#92;&quot;:905,&#92;&quot;Vida (HP)&#92;&quot;:78,&#92;&quot;Ataque Base&#92;&quot;:84,&#92;&quot;Defensa Base&#92;&quot;:78,&#92;&quot;Elemento&#92;&quot;:&#92;&quot;fire&#92;&quot;},{&#92;&quot;_marimo_row_id&#92;&quot;:3,&#92;&quot;Nombre Pok&#92;&#92;u00e9mon&#92;&quot;:&#92;&quot;Arbok&#92;&quot;,&#92;&quot;Altura (dm)&#92;&quot;:35,&#92;&quot;Peso (100g)&#92;&quot;:650,&#92;&quot;Vida (HP)&#92;&quot;:60,&#92;&quot;Ataque Base&#92;&quot;:95,&#92;&quot;Defensa Base&#92;&quot;:69,&#92;&quot;Elemento&#92;&quot;:&#92;&quot;poison&#92;&quot;},{&#92;&quot;_marimo_row_id&#92;&quot;:4,&#92;&quot;Nombre Pok&#92;&#92;u00e9mon&#92;&quot;:&#92;&quot;Mewtwo&#92;&quot;,&#92;&quot;Altura (dm)&#92;&quot;:20,&#92;&quot;Peso (100g)&#92;&quot;:1220,&#92;&quot;Vida (HP)&#92;&quot;:106,&#92;&quot;Ataque Base&#92;&quot;:110,&#92;&quot;Defensa Base&#92;&quot;:90,&#92;&quot;Elemento&#92;&quot;:&#92;&quot;psychic&#92;&quot;},{&#92;&quot;_marimo_row_id&#92;&quot;:5,&#92;&quot;Nombre Pok&#92;&#92;u00e9mon&#92;&quot;:&#92;&quot;Slowpoke&#92;&quot;,&#92;&quot;Altura (dm)&#92;&quot;:12,&#92;&quot;Peso (100g)&#92;&quot;:360,&#92;&quot;Vida (HP)&#92;&quot;:90,&#92;&quot;Ataque Base&#92;&quot;:65,&#92;&quot;Defensa Base&#92;&quot;:65,&#92;&quot;Elemento&#92;&quot;:&#92;&quot;water&#92;&quot;},{&#92;&quot;_marimo_row_id&#92;&quot;:6,&#92;&quot;Nombre Pok&#92;&#92;u00e9mon&#92;&quot;:&#92;&quot;Ponyta&#92;&quot;,&#92;&quot;Altura (dm)&#92;&quot;:10,&#92;&quot;Peso (100g)&#92;&quot;:300,&#92;&quot;Vida (HP)&#92;&quot;:50,&#92;&quot;Ataque Base&#92;&quot;:85,&#92;&quot;Defensa Base&#92;&quot;:55,&#92;&quot;Elemento&#92;&quot;:&#92;&quot;fire&#92;&quot;},{&#92;&quot;_marimo_row_id&#92;&quot;:7,&#92;&quot;Nombre Pok&#92;&#92;u00e9mon&#92;&quot;:&#92;&quot;Snorlax&#92;&quot;,&#92;&quot;Altura (dm)&#92;&quot;:21,&#92;&quot;Peso (100g)&#92;&quot;:4600,&#92;&quot;Vida (HP)&#92;&quot;:160,&#92;&quot;Ataque Base&#92;&quot;:110,&#92;&quot;Defensa Base&#92;&quot;:65,&#92;&quot;Elemento&#92;&quot;:&#92;&quot;normal&#92;&quot;},{&#92;&quot;_marimo_row_id&#92;&quot;:8,&#92;&quot;Nombre Pok&#92;&#92;u00e9mon&#92;&quot;:&#92;&quot;Squirtle&#92;&quot;,&#92;&quot;Altura (dm)&#92;&quot;:5,&#92;&quot;Peso (100g)&#92;&quot;:90,&#92;&quot;Vida (HP)&#92;&quot;:44,&#92;&quot;Ataque Base&#92;&quot;:48,&#92;&quot;Defensa Base&#92;&quot;:65,&#92;&quot;Elemento&#92;&quot;:&#92;&quot;water&#92;&quot;},{&#92;&quot;_marimo_row_id&#92;&quot;:9,&#92;&quot;Nombre Pok&#92;&#92;u00e9mon&#92;&quot;:&#92;&quot;Magikarp&#92;&quot;,&#92;&quot;Altura (dm)&#92;&quot;:9,&#92;&quot;Peso (100g)&#92;&quot;:100,&#92;&quot;Vida (HP)&#92;&quot;:20,&#92;&quot;Ataque Base&#92;&quot;:10,&#92;&quot;Defensa Base&#92;&quot;:55,&#92;&quot;Elemento&#92;&quot;:&#92;&quot;water&#92;&quot;}]&quot;' data-total-rows='10' data-total-columns='7' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='false' data-page-size='10' data-field-types='[[&quot;Nombre Pok\u00e9mon&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;Altura (dm)&quot;,[&quot;integer&quot;,&quot;int64&quot;]],[&quot;Peso (100g)&quot;,[&quot;integer&quot;,&quot;int64&quot;]],[&quot;Vida (HP)&quot;,[&quot;integer&quot;,&quot;int64&quot;]],[&quot;Ataque Base&quot;,[&quot;integer&quot;,&quot;int64&quot;]],[&quot;Defensa Base&quot;,[&quot;integer&quot;,&quot;int64&quot;]],[&quot;Elemento&quot;,[&quot;string&quot;,&quot;str&quot;]]]' data-selection='&quot;multi&quot;' data-show-filters='true' data-show-download='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='true' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[]' data-has-stable-row-id='true' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stderr",
+          "text": "\u001b[33m[W 260518 18:06:19 altair_transformer:82]\u001b(B\u001b[m Failed to convert data to arrow format, falling back to CSV: No module named 'pyarrow'\n\u001b[33m[W 260518 18:06:37 altair_transformer:82]\u001b(B\u001b[m Failed to convert data to arrow format, falling back to CSV: No module named 'pyarrow'\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    }
+  ]
+}

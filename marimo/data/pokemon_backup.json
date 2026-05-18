@@ -1,0 +1,14 @@
+{
+  "results": [
+    {"name": "pikachu", "height": 4, "weight": 60, "hp": 35, "attack": 55, "defense": 40, "type": "electric"},
+    {"name": "bulbasaur", "height": 7, "weight": 69, "hp": 45, "attack": 49, "defense": 49, "type": "grass"},
+    {"name": "charizard", "height": 17, "weight": 905, "hp": 78, "attack": 84, "defense": 78, "type": "fire"},
+    {"name": "arbok", "height": 35, "weight": 650, "hp": 60, "attack": 95, "defense": 69, "type": "poison"},
+    {"name": "mewtwo", "height": 20, "weight": 1220, "hp": 106, "attack": 110, "defense": 90, "type": "psychic"},
+    {"name": "slowpoke", "height": 12, "weight": 360, "hp": 90, "attack": 65, "defense": 65, "type": "water"},
+    {"name": "ponyta", "height": 10, "weight": 300, "hp": 50, "attack": 85, "defense": 55, "type": "fire"},
+    {"name": "snorlax", "height": 21, "weight": 4600, "hp": 160, "attack": 110, "defense": 65, "type": "normal"},
+    {"name": "squirtle", "height": 5, "weight": 90, "hp": 44, "attack": 48, "defense": 65, "type": "water"},
+    {"name": "magikarp", "height": 9, "weight": 100, "hp": 20, "attack": 10, "defense": 55, "type": "water"}
+  ]
+}
