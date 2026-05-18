@@ -128,7 +128,7 @@ class TimeSeriesFinanceClient(FinanceClient):
             raise FinanceClientParamError(
                 "from_date no puede ser posterior a to_date")
 
-        # 4. Filtrar (sin validar año)
+        # 4. Filtrar
         return series.loc[from_date:to_date]   # type: ignore
 
     def weekly_volume(self,
