@@ -25,6 +25,8 @@ def mocked_requests():
             json_filename = 'TIME_SERIES_WEEKLY_ADJUSTED.NVDA.json'
         elif 'IBM' in url:  # para el ejercicio dividends
             json_filename = 'TIME_SERIES_WEEKLY_ADJUSTED.IBM.json'
+        elif 'NODATA' in url:
+            json_filename = 'NODATA.json'
         else:
             raise ValueError('Ticker no soportado')
         json_resource = resources.files('teii.finance.data').joinpath(json_filename)
@@ -63,4 +65,25 @@ def pandas_series_IBM_dividends():
     with resources.as_file(csv_rsrc) as path2csv:
         df = pd.read_csv(path2csv, index_col=0)
         ds = df.squeeze("columns")
+    return ds
+
+@fixture(scope='package')
+def pandas_series_NVDA_volumes():
+    csv_rsrc = resources.files('teii.finance.data').joinpath(
+        'TIME_SERIES_WEEKLY_ADJUSTED.NVDA.volume.unfiltered.csv'
+    )
+    with resources.as_file(csv_rsrc) as path2csv:
+        df = pd.read_csv(path2csv, index_col=0, parse_dates=True)
+        ds = df['volume']
+    return ds
+
+
+@fixture(scope='package')
+def pandas_series_NVDA_volumes_filtered():
+    csv_rsrc = resources.files('teii.finance.data').joinpath(
+        'TIME_SERIES_WEEKLY_ADJUSTED.NVDA.volume.filtered.csv'
+    )
+    with resources.as_file(csv_rsrc) as path2csv:
+        df = pd.read_csv(path2csv, index_col=0, parse_dates=True)
+        ds = df['volume']
     return ds

@@ -104,7 +104,10 @@ El paquete `teii` contiene un único subpaquete llamado `teii.finance` compuesto
 - `timeseries.py`: Declara la clase derivada `TimeSeriesFinanceClient()`.
 
 ## Instalación del entorno necesario
+<<<<<<< HEAD
+=======
 'pypi' -> python package index (repositorio con todos los paquetes necesarios)
+>>>>>>> de9115477eae601423fa952919904d53c2ffa745
 
 ```bash
 $ pyenv virtualenv 3.11 venv-teii
@@ -112,9 +115,12 @@ $ pyenv activate venv-teii
 (venv-teii) $ python -m pip install --upgrade pip
 (venv-teii) $ pip install -r requirements.txt -r requirements-dev.txt -r requirements-extras.txt
             # Llevará unos minutos...
+<<<<<<< HEAD
+=======
 #'requirements.txt' le servirá al usuario final para usar las versiones adecuadas de las librerias
 #'requirements-dev.txt' contiene herramientas que le servirán al programador
 #'requirements-extras.txt' posee cosas extra pero no necesarias para su utilización
+>>>>>>> de9115477eae601423fa952919904d53c2ffa745
 (venv-teii) $ pip list
             # ~140-150 paquetes instalados en total
 ```

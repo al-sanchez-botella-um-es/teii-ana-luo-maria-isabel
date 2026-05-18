@@ -40,7 +40,6 @@ class TimeSeriesFinanceClient(FinanceClient):
 
     def _build_data_frame(self) -> None:
         """ Build Panda's DataFrame and format data. """
-
         # TODO
         #   Comprueba que no se produce ningún error y genera excepción
         #   'FinanceClientInvalidData' en caso contrario
@@ -73,13 +72,13 @@ class TimeSeriesFinanceClient(FinanceClient):
         URL format:
             https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=TICKER&outputsize=full&apikey=API_KEY&data_type=json
         """
-
         return (
             f"function=TIME_SERIES_WEEKLY_ADJUSTED"
             f"&symbol={self._ticker}"
             f"&outputsize=full"
             f"&apikey={self._api_key}"
             )
+
 
     @classmethod
     def _build_query_data_key(cls) -> str:
@@ -116,20 +115,24 @@ class TimeSeriesFinanceClient(FinanceClient):
         if from_date is not None and to_date is not None:
             series = series.loc[from_date:to_date]   # type: ignore
 
+        # return series
+        # si no hay fechas, devolvemos la serie completa
+        if from_date is None or to_date is None:
+            return series
+
+        # 2. Validar tipos
         if not isinstance(from_date, dt.date) or not isinstance(to_date,
                                                                 dt.date):
             raise FinanceClientParamError(
                 "Las fechas deben ser objetos datetime.date")
 
+        # 3. Validar orden
         if from_date > to_date:
             raise FinanceClientParamError(
                 "from_date no puede ser posterior a to_date")
 
-        if from_date.year != 2026 or to_date.year != 2026:
-            raise FinanceClientParamError(
-                "Las fechas deben pertenecer al año 2026")
-
-        return series
+        # 4. Filtrar
+        return series.loc[from_date:to_date]   # type: ignore
 
     def weekly_volume(self,
                       from_date: Optional[dt.date] = None,
@@ -140,15 +143,30 @@ class TimeSeriesFinanceClient(FinanceClient):
 
         series = self._data_frame['volume']
 
-        # TODO
+        # EJERCICIO 'VOLUME':
         #   Comprueba que from_date <= to_date y genera excepción
         #   'FinanceClientParamError' en caso de error
 
-        # FIXME: type hint error
-        if from_date is not None and to_date is not None:
-            series = series.loc[from_date:to_date]   # type: ignore
+        # 1. Si no hay fechas -> devolver serie completa
+        if from_date is None or to_date is None:
+            return series
 
-        return series
+        # 2. Validar tipos
+        if not isinstance(from_date, dt.date) or not isinstance(to_date,
+                                                                dt.date):
+            raise FinanceClientParamError(
+                "Las fechas deben ser objetos datetime.date"
+            )
+
+        # 3. Validar orden
+        if from_date > to_date:
+            raise FinanceClientParamError(
+                "from_date no puede ser posterior a to_date"
+            )
+
+        # 4. Filtrado correcto (sin validar año)
+        return series.loc[from_date:to_date]  # type: ignore
+
 
     def yearly_dividends(self,
                          from_year: Optional[int] = None,
