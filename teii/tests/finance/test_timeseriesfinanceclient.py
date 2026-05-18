@@ -2,7 +2,7 @@
 
 
 import datetime as dt
-
+import pandas as pd
 import pytest
 import requests
 from pandas.testing import assert_series_equal
@@ -164,3 +164,61 @@ def test_weekly_volume_dates(api_key_str,
     assert_series_equal(vs, pandas_series_NVDA_volumes_filtered)
 
     pass
+
+# EJERCICIO 'DIVIDENDS':
+
+
+def test_yearly_dividends_no_dates(api_key_str: str,
+                                   mocked_requests,
+                                   pandas_series_IBM_dividends: pd.Series) -> None:
+    """
+    Verifica que yearly_dividends() sin parámetros calcula correctamente
+    """
+    # Inicializamos para IBM
+    fc = TimeSeriesFinanceClient("IBM", api_key_str)
+
+    ps_resultado = fc.yearly_dividends()
+    # filtramos el resultado de la API para comparar solo esos mismos 5 años
+    ps_resultado_recortado = ps_resultado.loc[pandas_series_IBM_dividends.index]
+    # Comparamos que la serie generada sea igual a laque esperamos del CSV
+    assert_series_equal(ps_resultado_recortado, pandas_series_IBM_dividends,
+                        check_names=False, check_index_type=False, atol=0.02)
+
+
+def test_yearly_dividends_dates(api_key_str: str,
+                                mocked_requests,
+                                pandas_series_IBM_dividends: pd.Series) -> None:  # Usamos la serie completa 
+    """
+    Verifica que yearly_dividends(from_year, to_year) filtra y calcula correctamente
+    """
+    fc = TimeSeriesFinanceClient("IBM", api_key_str)
+
+    year_start = 2022
+    year_end = 2025
+
+    ps_resultado = fc.yearly_dividends(from_year=year_start, to_year=year_end)
+    # Filtramos dinámicamente la serie completa en memoria para los años del 2022 a 2025)
+    esperado_filtrado = pandas_series_IBM_dividends[
+        (pandas_series_IBM_dividends.index >= year_start) &
+        (pandas_series_IBM_dividends.index <= year_end)
+    ]
+    # Comparamos la igualdad resultados
+    assert_series_equal(ps_resultado, esperado_filtrado,
+                        check_names=False,  # ignora como se llaman las series o sus columnas.
+                        check_index_type=False,  # Evita fallo si índices de las series usan distintos números enteros
+                        check_dtype=False,  # Hace lo mismo que el anterior, pero aplicado a los valores de la serie
+                        atol=0.02)  # pequeñas diferencias decimales, acepta 0.02 de variacion
+
+
+def test_yearly_dividends_invalid_params(api_key_str: str,
+                                         mocked_requests) -> None:
+    """ Verifica que lanza FinanceClientParamError ante parámetros inválidos. """
+    fc = TimeSeriesFinanceClient("IBM", api_key_str)
+
+    # Caso 1: Año de inicio posterior al año de fin
+    with pytest.raises(FinanceClientParamError):
+        fc.yearly_dividends(from_year=2026, to_year=2021)
+
+    # Caso 2: El tipo de parámetro no es un entero (int)
+    with pytest.raises(FinanceClientParamError):
+        fc.yearly_dividends(from_year="2020", to_year=2025)  # type: ignore
