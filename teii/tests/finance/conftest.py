@@ -31,13 +31,14 @@ def mocked_requests():
         json_data = json.loads(json_resource.read_text(encoding='utf-8'))
         response.json.return_value = json_data
         return response
-    
+
+    # This fixture does not return a value: it patches teii.finance.finance.requests
+    # with a local mock to avoid real HTTP calls and keep tests deterministic.
     mocked_requests = mock.Mock()
     mocked_requests.get.side_effect = mocked_get
     teii.finance.finance.requests = mocked_requests
-    return mocked_requests
 
-
+# Devuelve un dataframe de los recursos del proyecto '.data'
 @fixture(scope='package')
 def pandas_series_NVDA_prices():
     csv_rsrc = resources.files('teii.finance.data').joinpath('TIME_SERIES_WEEKLY_ADJUSTED.NVDA.aclose.unfiltered.csv')
@@ -54,3 +55,26 @@ def pandas_series_NVDA_prices_filtered():
         df = pd.read_csv(path2csv, index_col=0, parse_dates=True)
         ds = df['aclose']
     return ds
+
+
+@fixture(scope='package')
+def pandas_series_NVDA_volumes():
+    csv_rsrc = resources.files('teii.finance.data').joinpath(
+        'TIME_SERIES_WEEKLY_ADJUSTED.NVDA.volume.unfiltered.csv'
+    )
+    with resources.as_file(csv_rsrc) as path2csv:
+        df = pd.read_csv(path2csv, index_col=0, parse_dates=True)
+        ds = df['volume']
+    return ds
+
+
+@fixture(scope='package')
+def pandas_series_NVDA_volumes_filtered():
+    csv_rsrc = resources.files('teii.finance.data').joinpath(
+        'TIME_SERIES_WEEKLY_ADJUSTED.NVDA.volume.filtered.csv'
+    )
+    with resources.as_file(csv_rsrc) as path2csv:
+        df = pd.read_csv(path2csv, index_col=0, parse_dates=True)
+        ds = df['volume']
+    return ds
+

@@ -4,7 +4,7 @@ from pathlib import Path
 
 from pytest import fixture
 
-
+# Tests globales
 @fixture  # scope='function' is the default, so we can omit it
 def sandbox_root_path(tmp_path, monkeypatch):
     """Create an isolated working directory for a single test.

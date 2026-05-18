@@ -4,7 +4,8 @@
 class FinanceClientError(Exception):
     """FinanceClient exception base class.
 
-    https://www.loggly.com/blog/exceptional-logging-of-exceptions-in-python/ (Transformer Pattern)
+    https://www.loggly.com/blog/exceptional-logging-of-exceptions-in-python/
+    (Transformer Pattern)
     """
 
     pass
@@ -39,4 +40,12 @@ class FinanceClientIOError(FinanceClientError):
     Error reading or writing data file.
     """
 
+    pass
+
+
+# EJERCICIO 'PRICE'
+class FinanceClientParamError(FinanceClientError):
+    """
+    Error en los parámetros proporcionados al cliente.
+    """
     pass
