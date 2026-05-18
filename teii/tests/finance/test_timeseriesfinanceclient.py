@@ -222,3 +222,57 @@ def test_yearly_dividends_invalid_params(api_key_str: str,
     # Caso 2: El tipo de parámetro no es un entero (int)
     with pytest.raises(FinanceClientParamError):
         fc.yearly_dividends(from_year="2020", to_year=2025)  # type: ignore
+
+
+# --- EJERCICIO [VARIATION] ---
+
+
+def test_highest_weekly_variation_no_dates(api_key_str, mocked_requests):
+    """ Verifica el cálculo de la mayor variación para todo el histórico de NVDA. """
+    fc = TimeSeriesFinanceClient("NVDA", api_key_str)
+
+    resultado = fc.highest_weekly_variation()
+
+    # Verificamos que no devuelva None
+    # Tiene que ser tupla de 4 elementos
+    assert resultado is not None
+    assert isinstance(resultado, tuple)
+    assert len(resultado) == 4
+
+    # Comprobamos los tipos de datosdevueltos
+    assert isinstance(resultado[0], dt.date)
+    assert isinstance(resultado[1], float)
+    assert isinstance(resultado[2], float)
+    assert isinstance(resultado[3], float)
+
+    # La variación debe ser exactamente high - low
+    assert resultado[3] == pytest.approx(resultado[1] - resultado[2], abs=0.01)
+
+
+def test_highest_weekly_variation_dates(api_key_str, mocked_requests):
+    """ Verifica el cálculo acotando un intervalo mínimo de fechas en 2026. """
+    fc = TimeSeriesFinanceClient("NVDA", api_key_str)
+
+    # Usamos un rango de fechas que sí exista en el JSON de NVDA (Marzo 2026)
+    from_date = dt.date(2026, 3, 1)
+    to_date = dt.date(2026, 3, 31)
+
+    resultado = fc.highest_weekly_variation(from_date=from_date, to_date=to_date)
+
+    assert resultado is not None
+    # Comprobamos que la fecha elegida esté dentro del rango solicitado
+    assert from_date <= resultado[0] <= to_date
+    assert resultado[3] == pytest.approx(resultado[1] - resultado[2], abs=0.01)
+
+
+def test_highest_weekly_variation_invalid_params(api_key_str, mocked_requests):
+    """ Verifica que salten las excepciones correctas ante entradas erróneas. """
+    fc = TimeSeriesFinanceClient("NVDA", api_key_str)
+
+    # Caso 1: Fechas invertidas
+    with pytest.raises(FinanceClientParamError):
+        fc.highest_weekly_variation(from_date=dt.date(2026, 3, 31), to_date=dt.date(2026, 3, 1))
+
+    # Caso 2: Parámetro con tipo incorrecto (String en lugar de datetime.date)
+    with pytest.raises(FinanceClientParamError):
+        fc.highest_weekly_variation(from_date="2026-03-01", to_date=dt.date(2026, 3, 31))  # type: ignore
