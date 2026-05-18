@@ -86,6 +86,7 @@ class TimeSeriesFinanceClient(FinanceClient):
             f"&apikey={self._api_key}"
             )
 
+
     @classmethod
     def _build_query_data_key(cls) -> str:
         """ Return data query key. """
@@ -124,6 +125,10 @@ class TimeSeriesFinanceClient(FinanceClient):
         #   'FinanceClientParamError' en caso de error
 
         # FIXME: type hint error
+        if from_date is not None and to_date is not None:
+            series = series.loc[from_date:to_date]   # type: ignore
+
+        # return series
         # si no hay fechas, devolvemos la serie completa
         if from_date is None or to_date is None:
             return series

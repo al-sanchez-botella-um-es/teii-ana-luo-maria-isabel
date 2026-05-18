@@ -23,6 +23,10 @@ def mocked_requests():
         response.status_code = 200
         if 'NVDA' in url:
             json_filename = 'TIME_SERIES_WEEKLY_ADJUSTED.NVDA.json'
+        elif 'IBM' in url:  # para el ejercicio dividends
+            json_filename = 'TIME_SERIES_WEEKLY_ADJUSTED.IBM.json'
+        elif 'NODATA' in url:
+            json_filename = 'NODATA.json'
         else:
             raise ValueError('Ticker no soportado')
         json_resource = resources.files('teii.finance.data').joinpath(json_filename)
@@ -54,6 +58,14 @@ def pandas_series_NVDA_prices_filtered():
         ds = df['aclose']
     return ds
 
+
+@fixture(scope='package')
+def pandas_series_IBM_dividends():
+    csv_rsrc = resources.files('teii.finance.data').joinpath('TIME_SERIES_WEEKLY_ADJUSTED.IBM.dividend.unfiltered.csv')
+    with resources.as_file(csv_rsrc) as path2csv:
+        df = pd.read_csv(path2csv, index_col=0)
+        ds = df.squeeze("columns")
+    return ds
 
 @fixture(scope='package')
 def pandas_series_NVDA_volumes():

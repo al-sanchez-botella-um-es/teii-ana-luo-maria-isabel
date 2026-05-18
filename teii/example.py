@@ -103,6 +103,7 @@ def main():
     finally:
         logger.info("Fin")
 
+
 # Es necesario!
 # _name_ es un atributo de los módulos de python (el nombre del fichero),
 # que se referencia desde la línea de comandos, a la hora de ejecutarlo.
