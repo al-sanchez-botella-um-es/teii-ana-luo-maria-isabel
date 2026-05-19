@@ -86,7 +86,6 @@ class TimeSeriesFinanceClient(FinanceClient):
             f"&apikey={self._api_key}"
             )
 
-
     @classmethod
     def _build_query_data_key(cls) -> str:
         """ Return data query key. """
@@ -188,7 +187,7 @@ class TimeSeriesFinanceClient(FinanceClient):
         # 4. Filtrado correcto
         self._logger.debug("Filtrado de volumen completado correctamente")
         return series.loc[from_date:to_date]  # type: ignore
-    
+
     def yearly_dividends(self,
                          from_year: Optional[int] = None,
                          to_year: Optional[int] = None) -> pd.Series:
@@ -254,7 +253,7 @@ class TimeSeriesFinanceClient(FinanceClient):
                                type(from_date))
             raise FinanceClientParamError(
                 "from_date debe ser un objeto datetime.date")
-        
+
         if to_date is not None and not isinstance(to_date, dt.date):
             self._logger.error("to_date no es datetime.date: %s",
                                type(to_date))
