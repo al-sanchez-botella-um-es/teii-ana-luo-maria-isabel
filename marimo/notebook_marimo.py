@@ -22,7 +22,7 @@ def _(mo):
     # Título
     mo.md("""
     # **Panel Pokemon Reactivo con Marimo**
-    **Asignatura:** Tecnologías Específicas en Ingeniería Informática
+    **Asignatura:** Tecnologías Específicas en Ingeniería Informática <br>
     **Autoras:** <br>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     Ana Luo Sánchez Botella <br>
@@ -51,7 +51,6 @@ def _(mo, modo_api, tipo_selector):
 
     # Renderizamos visualmente ambos controles en paralelo dentro del navegador web
     mo.hstack([tipo_selector, modo_api], justify="start")
-
     return
 
 
@@ -100,7 +99,7 @@ def _(json, mo, modo_api, requests):
         with open("data/pokemon_backup.json", "r", encoding="utf-8") as f:
             datos_finales = json.load(f)
         msg_estado = "**Fichero local activo ('pokemon_backup.json'). Cumpliendo filosofía de funcionamiento offline.**"
-    
+
     # Imprimimos el estado dinámico del origen de datos en formato Markdown
     mo.md(msg_estado)
     return (datos_finales,)
@@ -130,7 +129,6 @@ def _(datos_finales, pd, tipo_selector):
         "defense": "Defensa Base",
         "type": "Elemento"
     })
-
     return df_filtrado, df_tabla
 
 
@@ -162,7 +160,6 @@ def _(alt, df_filtrado, df_tabla, mo):
 
     # Renderizamos la gráfica exportándola como HTML compatible con la celda de Marimo
     mo.as_html(grafico)
-
     return
 
 
@@ -171,7 +168,6 @@ def _(df_tabla, mo):
     mo.md("### Base de Datos Analítica")
     # # mo.ui.table renderiza el DataFrame procesado permitiendo ordenación y filtrado web interactivo haciendo clic
     mo.ui.table(df_tabla)
-
     return
 
 
