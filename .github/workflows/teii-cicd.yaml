@@ -44,6 +44,7 @@ jobs:
 
     # Testear
     - name: Testear tests via Tox
+      working-directory: ./teii
       run: |
         # 4. Corregido: Usamos vuestra variable "version_python" en los ifs
         if [ "${{ matrix.version_python }}" = "3.11" ]; then
