@@ -1,4 +1,10 @@
-""" Finance Client classes """
+"""
+Clases base para el acceso a datos financieros mediante AlphaVantage.
+
+Este módulo define `FinanceClient`, una clase abstracta que encapsula
+la lógica común para realizar peticiones HTTP, validar respuestas,
+procesar datos JSON y convertirlos en estructuras pandas.
+"""
 
 
 import json
@@ -16,9 +22,37 @@ from teii.finance import (FinanceClientAPIError, FinanceClientInvalidAPIKey,
 
 
 class FinanceClient(ABC):
-    """ Wrapper around the Finance API. """
+    """
+    Cliente abstracto para acceder a datos financieros desde AlphaVantage.
 
-    _FinanceBaseQueryURL = "https://www.alphavantage.co/query?"  # Class variable
+    Gestiona la construcción de URLs, el acceso HTTP, la validación de
+    metadatos, el procesamiento del JSON recibido y la conversión a
+    `pandas.DataFrame`.
+
+    Parameters
+    ----------
+    ticker : str
+        Símbolo bursátil (por ejemplo, 'IBM').
+    api_key : str, optional
+        Clave API para AlphaVantage. Si no se proporciona, se intenta
+        obtener de la variable de entorno `TEII_FINANCE_API_KEY`.
+    logging_level : int or str, optional
+        Nivel de logging para el cliente.
+    logging_file : str, optional
+        Archivo donde escribir los logs.
+
+    Raises
+    ------
+    FinanceClientInvalidAPIKey
+        Si la clave API no existe o no es válida.
+    FinanceClientAPIError
+        Si la petición HTTP falla.
+    FinanceClientInvalidData
+        Si la respuesta JSON no contiene los campos esperados.
+    """
+
+    _FinanceBaseQueryURL = "https://www.alphavantage.co/query?"
+    # Class variable
 
     def __init__(self, ticker: str,
                  api_key: Optional[str] = None,
@@ -37,7 +71,8 @@ class FinanceClient(ABC):
         if self._api_key is None:
             self._api_key = os.getenv("TEII_FINANCE_API_KEY")
         if self._api_key is None or not isinstance(self._api_key, str):
-            raise FinanceClientInvalidAPIKey(f"{self.__class__.__qualname__} operation failed")
+            raise FinanceClientInvalidAPIKey(
+                f"{self.__class__.__qualname__} operation failed")
 
         # Query Finance API
         self._logger.info("Finance API access...")
@@ -85,7 +120,19 @@ class FinanceClient(ABC):
         pass  # pragma: nocover
 
     def _query_api(self) -> requests.Response:
-        """ Query API endpoint. """
+        """
+        Realiza la petición HTTP a la API financiera.
+
+        Returns
+        -------
+        requests.Response
+            Respuesta HTTP de la API.
+
+        Raises
+        ------
+        FinanceClientAPIError
+            Si la petición falla o devuelve un código inesperado.
+        """
 
         try:
             url = self.__class__._build_base_query_url()
@@ -96,7 +143,8 @@ class FinanceClient(ABC):
             raise FinanceClientAPIError("Unsuccessful API access") from e
         else:
             self._logger.info("Successful API access "
-                              f"[URL: {response.url}, status: {response.status_code}]")
+                              f"[URL: {response.url},"
+                              f" status: {response.status_code}]")
         return response
 
     @classmethod
@@ -113,12 +161,29 @@ class FinanceClient(ABC):
         pass  # pragma: nocover
 
     def _process_query_response(self, response: requests.Response) -> None:
-        """ Preprocess query data. """
+        """
+        Procesa la respuesta JSON de la API.
+
+        Extrae los metadatos y los datos principales usando las claves
+        definidas por las clases derivadas.
+
+        Parameters
+        ----------
+        response : requests.Response
+            Respuesta HTTP recibida.
+
+        Raises
+        ------
+        FinanceClientInvalidData
+            Si el JSON no contiene los campos esperados.
+        """
 
         try:
             json_data_downloaded = response.json()
-            self._json_metadata = json_data_downloaded[self._build_query_metadata_key()]
-            self._json_data = json_data_downloaded[self._build_query_data_key()]
+            self._json_metadata = json_data_downloaded[
+                self._build_query_metadata_key()]
+            self._json_data = json_data_downloaded[
+                self._build_query_data_key()]
         except Exception as e:
             self._logger.exception("Error processing query response")
             print(f"Response content: '{response.text}'")
@@ -136,20 +201,45 @@ class FinanceClient(ABC):
         pass  # pragma: nocover
 
     def to_pandas(self) -> pd.DataFrame:
-        """ Return pandas data frame from json data. """
+        """
+        Devuelve el DataFrame generado a partir de los datos JSON.
+
+        Returns
+        -------
+        pandas.DataFrame
+            DataFrame con los datos financieros procesados.
+        """
 
         assert self._data_frame is not None
 
         return self._data_frame
 
     def to_csv(self, path2file: Path) -> Path:
-        """ Write json data into csv file 'path2file'. """
+        """
+        Guarda el DataFrame en un archivo CSV.
+
+        Parameters
+        ----------
+        path2file : pathlib.Path
+            Ruta del archivo destino.
+
+        Returns
+        -------
+        pathlib.Path
+            Ruta del archivo escrito.
+
+        Raises
+        ------
+        FinanceClientIOError
+            Si no es posible escribir el archivo.
+        """
 
         assert self._data_frame is not None
 
         try:
             self._data_frame.to_csv(path2file)
         except (IOError, PermissionError) as e:
-            raise FinanceClientIOError(f"Unable to write json data into file '{path2file}'") from e
+            raise FinanceClientIOError(
+                f"Unable to write json data into file '{path2file}'") from e
 
         return path2file
