@@ -1,5 +1,8 @@
 name: CICD
 
+# ------------------------
+# | INTEGRACIÓN CONTINUA |
+# ------------------------
 # Controls when the action will run
 on:
   push: # Se activa cuando mergeas una rama a otra dentro de main.
@@ -54,3 +57,37 @@ jobs:
         elif [ "${{ matrix.version_python }}" = "3.13" ]; then
           tox -e lint,py313
         fi
+
+# -------------------------
+# | DISTRIBUCIÓN CONTINUA |
+# -------------------------
+# Publishes the package to TestPypi
+# build-and-publish-package:
+#   needs: test-job
+#   runs-on: ubuntu-latest
+#   if: github.event_name == 'push' && github.ref == 'refs/heads/main' # Solo se activará de verdad cuando hayan cambios en la rama principal
+#   steps:
+#   - name: Checkout repository
+#     uses: actions/checkout@v4
+#
+#   - name: Set up Python 3.12 # Inicializa e instala Python en el servidor en la nube
+#     uses: actions/setup-python@v6
+#     with:
+#       python-version: "3.12"
+#
+# Builds the package
+#   - name: Build package 
+#     working-directory: ./teii
+#     run: |
+#       pip install setuptools wheel
+#       python setup.py bdist_wheel
+#
+#   - name: Publish package
+#     env: # Se definen las variables de entorno
+#       TWINE_USERNAME: __token__ # se usa un token de seguridad en lugar de un usuario común para identificar
+#       TWINE_PASSWORD: ${{ secrets.TWINE_TESTPYPI_TOKEN }} # Llama de forma segura al Secret oculto que se configura, evitando escribir contraseñas de verdad
+#       TWINE_REPOSITORY: testpypi
+#     working-directory: ./teii
+#     run: |
+#       pip install twine
+#       python3 -m twine upload dist/*
