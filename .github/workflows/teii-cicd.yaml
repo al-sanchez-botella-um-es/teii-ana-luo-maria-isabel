@@ -13,16 +13,13 @@ on:
 jobs:
   # This workflow contains a single job called "test-job"
   test-job:
-    # 1. Corregido: Llamamos a la variable "sistema" que has creado
     runs-on: ${{ matrix.sistema }}
-    
-    # 2. Corregido: strategy y matrix ahora llevan 4 y 6 espacios de sangría
+
     strategy:
       matrix:
         sistema: [ubuntu-22.04, ubuntu-24.04]
         version_python: ["3.11", "3.12", "3.13"]
-    
-    # 3. Corregido: steps lleva 4 espacios de sangría
+
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - name: Checkout repository
