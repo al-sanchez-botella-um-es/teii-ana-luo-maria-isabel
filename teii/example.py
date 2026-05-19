@@ -1,4 +1,10 @@
-""" Ejemplo de uso del paquete teii. """
+"""
+Ejemplo de uso del paquete `teii.finance`.
+
+Este módulo muestra cómo configurar el sistema de logging, crear un cliente
+financiero, obtener precios semanales filtrados por fecha y generar una
+gráfica con matplotlib.
+"""
 
 
 import logging
@@ -36,7 +42,19 @@ root.addHandler(handler)
 
 
 def setup_logging(logging_level):
-    """ Crea y configura logger. """
+    """
+    Configura y devuelve un logger para el ejemplo.
+
+    Parameters
+    ----------
+    logging_level : int
+        Nivel de logging (por ejemplo, logging.DEBUG).
+
+    Returns
+    -------
+    logging.Logger
+        Logger configurado para el módulo.
+    """
 
     # Configura logging para enviar la salida a un archivo
 
@@ -50,7 +68,18 @@ def setup_logging(logging_level):
 
 
 def plot(pandas_series, ticker, logger):
-    """ Dibuja una gráfica a partir de la serie de Pandas. """
+    """
+    Dibuja una gráfica a partir de una serie temporal de pandas.
+
+    Parameters
+    ----------
+    pandas_series : pandas.Series
+        Serie temporal con los valores a representar.
+    ticker : str
+        Símbolo bursátil asociado a la serie.
+    logger : logging.Logger
+        Logger para registrar el proceso de dibujo.
+    """
 
     logger.info("Dibujando gráfica...")
 
@@ -60,7 +89,20 @@ def plot(pandas_series, ticker, logger):
 
 
 def main():
-    """ Muestra como usar teii-finance. """
+    """
+    Ejecuta un ejemplo completo de uso del cliente financiero.
+
+    Realiza:
+    - Configuración del logger
+    - Creación del cliente financiero
+    - Obtención de precios semanales filtrados al año 2026
+    - Representación gráfica de los datos
+
+    Notes
+    -----
+    Este ejemplo utiliza una API key ficticia. Para un uso real, debe
+    configurarse una clave válida desde AlphaVantage.
+    """
 
     # logger = setup_logging(logging.DEBUG)
     logger = logging.getLogger(__name__)
