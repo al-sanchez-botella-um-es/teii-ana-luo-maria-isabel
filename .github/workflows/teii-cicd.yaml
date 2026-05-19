@@ -13,15 +13,16 @@ on:
 jobs:
   # This workflow contains a single job called "test-job"
   test-job:
-    runs-on: ${{ matrix.os }}
+    # 1. Corregido: Llamamos a la variable "sistema" que has creado
+    runs-on: ${{ matrix.sistema }}
     
-    # The type of runner that the job will run on
+    # 2. Corregido: strategy y matrix ahora llevan 4 y 6 espacios de sangría
     strategy:
       matrix:
-        sistema: [ubuntu-22.04, ubuntu-24.04]  # Cambiado "os" por "sistema"
+        sistema: [ubuntu-22.04, ubuntu-24.04]
         version_python: ["3.11", "3.12", "3.13"]
     
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    # 3. Corregido: steps lleva 4 espacios de sangría
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - name: Checkout repository
@@ -47,10 +48,11 @@ jobs:
     # Testear
     - name: Testear tests via Tox
       run: |
-        if [ "${{ matrix.python-version }}" = "3.11" ]; then
+        # 4. Corregido: Usamos vuestra variable "version_python" en los ifs
+        if [ "${{ matrix.version_python }}" = "3.11" ]; then
           tox -e lint,py311
-        elif [ "${{ matrix.python-version }}" = "3.12" ]; then
+        elif [ "${{ matrix.version_python }}" = "3.12" ]; then
           tox -e lint,py312
-        elif [ "${{ matrix.python-version }}" = "3.13" ]; then
+        elif [ "${{ matrix.version_python }}" = "3.13" ]; then
           tox -e lint,py313
         fi
