@@ -1,4 +1,10 @@
-""" Finance subpackage that retrieves finance data from AlphaVantage. """
+"""
+Subpaquete `teii.finance`.
+
+Proporciona clases y excepciones para acceder a datos financieros desde
+AlphaVantage, procesarlos y convertirlos en estructuras pandas listas
+para análisis.
+"""
 
 
 from .exception import (FinanceClientAPIError, FinanceClientInvalidAPIKey,

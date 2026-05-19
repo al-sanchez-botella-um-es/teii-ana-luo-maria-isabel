@@ -1,4 +1,17 @@
-""" Time Series Finance Client classes """
+"""
+Cliente especializado para series temporales semanales ajustadas (AlphaVantage)
+
+Este módulo implementa `TimeSeriesFinanceClient`, una clase derivada de
+`FinanceClient` que consulta la función `TIME_SERIES_WEEKLY_ADJUSTED` de
+AlphaVantage, valida los metadatos, construye un DataFrame ordenado y
+proporciona métodos para obtener precios, volumen, dividendos y variaciones
+semanales.
+
+Notes
+-----
+Los datos siguen el formato documentado en:
+https://www.alphavantage.co/documentation/
+"""
 
 
 import datetime as dt
@@ -12,11 +25,36 @@ from teii.finance import (FinanceClient, FinanceClientInvalidData,
 
 
 class TimeSeriesFinanceClient(FinanceClient):
-    """ Wrapper around the AlphaVantage API for Time Series Weekly Adjusted.
+    """
+    Cliente para series temporales semanales ajustadas de AlphaVantage.
 
-        Source:
-            https://www.alphavantage.co/documentation/
-            (TIME_SERIES_WEEKLY_ADJUSTED)
+    Gestiona la construcción de la URL de consulta, la validación de metadatos,
+    la conversión del JSON recibido a un `pandas.DataFrame` y la exposición de
+    métodos de análisis como precios, volumen, dividendos y variación semanal.
+
+    Parameters
+    ----------
+    ticker : str
+        Símbolo bursátil (por ejemplo, 'NVDA').
+    api_key : str, optional
+        Clave API para AlphaVantage. Si no se proporciona, se intenta obtener
+        de la variable de entorno `TEII_FINANCE_API_KEY`.
+    logging_level : int or str, optional
+        Nivel de logging para el cliente.
+
+    Attributes
+    ----------
+    _data_frame : pandas.DataFrame
+        DataFrame con los datos semanales ajustados, ordenados por fecha.
+    _json_metadata : dict
+        Metadatos devueltos por la API.
+    _json_data : dict
+        Datos semanales ajustados devueltos por la API.
+
+    Raises
+    ------
+    FinanceClientInvalidData
+        Si los metadatos no contienen el símbolo esperado.
     """
 
     _data_field2name_type = {
@@ -41,7 +79,18 @@ class TimeSeriesFinanceClient(FinanceClient):
         self._build_data_frame()
 
     def _build_data_frame(self) -> None:
-        """ Build Panda's DataFrame and format data. """
+        """
+        Construye el DataFrame de pandas a partir del JSON recibido.
+
+        Convierte los campos numéricos a sus tipos correctos, renombra las
+        columnas según `_data_field2name_type`, convierte el índice a fechas
+        y ordena el DataFrame cronológicamente.
+
+        Raises
+        ------
+        FinanceClientInvalidData
+            Si los datos no pueden convertirse correctamente en un DataFrame.
+        """
         self._logger.debug("Construyendo DataFrame a partir de los datos JSON")
 
         # TODO
@@ -70,12 +119,14 @@ class TimeSeriesFinanceClient(FinanceClient):
         self._logger.info("DataFrame construido y ordenado correctamente")
 
     def _build_base_query_url_params(self) -> str:
-        """ Return base query URL parameters.
+        """
+        Construye los parámetros base de la consulta para AlphaVantage.
 
-        Parameters are dependent on the query type:
-            https://www.alphavantage.co/documentation/
-        URL format:
-            https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY_ADJUSTED&symbol=TICKER&outputsize=full&apikey=API_KEY&data_type=json
+        Returns
+        -------
+        str
+            Cadena con los parámetros necesarios para la función
+            `TIME_SERIES_WEEKLY_ADJUSTED`.
         """
         self._logger.debug("Generando parámetros base de la URL de consulta")
 
@@ -88,14 +139,29 @@ class TimeSeriesFinanceClient(FinanceClient):
 
     @classmethod
     def _build_query_data_key(cls) -> str:
-        """ Return data query key. """
+        """
+        Devuelve la clave del JSON donde se encuentran los datos semanales.
+
+        Returns
+        -------
+        str
+            Nombre del campo JSON que contiene los datos de la serie temporal.
+        """
         logging.getLogger(__name__).debug(
             "Generando clave de acceso a los datos JSON")
 
         return "Weekly Adjusted Time Series"
 
     def _validate_query_data(self) -> None:
-        """ Validate query data. """
+        """
+        Valida que los metadatos de la API coinciden con el ticker solicitado.
+
+        Raises
+        ------
+        FinanceClientInvalidData
+            Si el campo '2. Symbol' no coincide con el ticker del cliente.
+        """
+
         self._logger.debug("Validando metadatos de la consulta")
 
         try:
@@ -110,7 +176,30 @@ class TimeSeriesFinanceClient(FinanceClient):
     def weekly_price(self,
                      from_date: Optional[dt.date] = None,
                      to_date: Optional[dt.date] = None) -> pd.Series:
-        """ Return weekly close price from 'from_date' to 'to_date'. """
+        """
+        Devuelve la serie de precios ajustados semanales.
+
+        Parameters
+        ----------
+        from_date : datetime.date, optional
+            Fecha inicial del rango.
+        to_date : datetime.date, optional
+            Fecha final del rango.
+
+        Returns
+        -------
+        pandas.Series
+            Serie temporal con precios ajustados ('aclose').
+
+        Raises
+        ------
+        FinanceClientParamError
+            Si las fechas no son válidas o si from_date > to_date.
+
+        Examples
+        --------
+        >>> client.weekly_price(date(2025, 1, 1), date(2025, 12, 31))
+        """
         self._logger.info("Solicitando precios semanales")
         self._logger.debug(
             f"Parámetros recibidos: from_date={from_date}, to_date={to_date}")
@@ -152,7 +241,26 @@ class TimeSeriesFinanceClient(FinanceClient):
     def weekly_volume(self,
                       from_date: Optional[dt.date] = None,
                       to_date: Optional[dt.date] = None) -> pd.Series:
-        """ Return weekly volume from 'from_date' to 'to_date'. """
+        """
+        Devuelve la serie de volumen semanal.
+
+        Parameters
+        ----------
+        from_date : datetime.date, optional
+            Fecha inicial del rango.
+        to_date : datetime.date, optional
+            Fecha final del rango.
+
+        Returns
+        -------
+        pandas.Series
+            Serie temporal con el volumen semanal.
+
+        Raises
+        ------
+        FinanceClientParamError
+            Si las fechas no son válidas o si from_date > to_date.
+        """
         self._logger.info("Solicitando volumen semanal")
         self._logger.debug(
             f"Parámetros recibidos: from_date={from_date}, to_date={to_date}")
@@ -191,8 +299,26 @@ class TimeSeriesFinanceClient(FinanceClient):
     def yearly_dividends(self,
                          from_year: Optional[int] = None,
                          to_year: Optional[int] = None) -> pd.Series:
-        """ Devuelve el dividendo total anual de from_year y to_year del
-        ticket elegido"""
+        """
+        Calcula los dividendos anuales totales en un rango de años.
+
+        Parameters
+        ----------
+        from_year : int, optional
+            Año inicial del rango.
+        to_year : int, optional
+            Año final del rango.
+
+        Returns
+        -------
+        pandas.Series
+            Serie con dividendos totales por año.
+
+        Raises
+        ------
+        FinanceClientParamError
+            Si los años no son enteros o si from_year > to_year.
+        """
         self._logger.debug(
             "Calculando yearly_dividends(from_year=%s, to_year=%s)", from_year,
             to_year)
@@ -239,8 +365,26 @@ class TimeSeriesFinanceClient(FinanceClient):
     def highest_weekly_variation(self,
                                  from_date: Optional[dt.date] = None,
                                  to_date: Optional[dt.date] = None) -> Optional[tuple[dt.date, float, float, float]]:
-        """ Devolver (date, high, low, variation) para
-        la semana con la mayor variación. """
+        """
+        Devuelve la semana con mayor variación (high - low).
+
+        Parameters
+        ----------
+        from_date : datetime.date, optional
+            Fecha inicial del rango.
+        to_date : datetime.date, optional
+            Fecha final del rango.
+
+        Returns
+        -------
+        tuple or None
+            (fecha, high, low, variación) o None si no hay datos.
+
+        Raises
+        ------
+        FinanceClientParamError
+            Si las fechas no son válidas o si from_date > to_date.
+        """
         self._logger.debug(
             "Calculando highest_weekly_variation(from_date=%s, to_date=%s)",
             from_date, to_date)
